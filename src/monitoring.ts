@@ -3,16 +3,11 @@ import { BoundCounter } from "@opentelemetry/api-metrics"
 import { RequestHandler } from "express"
 import { PrometheusExporter } from "@opentelemetry/exporter-prometheus"
 
-const promPort = PrometheusExporter.DEFAULT_OPTIONS.port
-const promEndpoint = PrometheusExporter.DEFAULT_OPTIONS.endpoint
-const promExporter = new PrometheusExporter(
-  {
-    // host: "prometheus"
-  },
-  () => {
-    console.log(`prometheus scrape endpoint: http://app:${promPort}${promEndpoint}`)
-  }
-)
+const promExporter = new PrometheusExporter({
+  host: "0.0.0.0",
+  port: PrometheusExporter.DEFAULT_OPTIONS.port,
+  endpoint: PrometheusExporter.DEFAULT_OPTIONS.endpoint
+})
 
 const meter = new MeterProvider({
   exporter: promExporter,

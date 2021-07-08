@@ -9,6 +9,9 @@ services:
     volumes:
       - ./config:/prometheus
       - ./data/prometheus:/data
+    command:
+      - "--config.file=/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/data"
     ports:
       - 9090:9090
   app:
