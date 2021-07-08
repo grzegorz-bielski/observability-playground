@@ -17,7 +17,13 @@ const provider = new NodeTracerProvider({
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.ALL)
 
-provider.addSpanProcessor(new SimpleSpanProcessor(new ZipkinExporter()))
+provider.addSpanProcessor(
+  new SimpleSpanProcessor(
+    new ZipkinExporter({
+      url: "http://zipkin:9411/api/v2/spans"
+    })
+  )
+)
 provider.register()
 
 registerInstrumentations({
